@@ -10,7 +10,7 @@ Some Screenshots:
 
 <img src="https://user-images.githubusercontent.com/43596461/206319307-95c9a5c9-fb3d-434c-8fe8-3f0e84c388b4.png" width="512">
 
-<img src="https://user-images.githubusercontent.com/43596461/206319865-c4c3fb6d-7474-419b-b4c2-26db466beb9e.png" width="512">
+<img src="https://user-images.githubusercontent.com/43596461/206322386-7db13021-abe7-45f7-82bb-9f3b3ac32c7a.png" width="512">
 
 Please refer to [discord.js](https://discord.js.org/#/docs/discord.js/main/general/welcome) Documentation.
 Also, refer to very helpful [OpenAI](https://beta.openai.com/docs/introduction) Documentation.
