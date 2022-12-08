@@ -1,4 +1,4 @@
-# AdaGPT3BOT
+# Ada AI GPT3 
 Ada is a loving, caring and nurturing discord bot created with the OpenAI GPT3 model, it is fine tuned with custom prompts. I created it by making use of the discord API and by utilising the openAI's API.
 The bot itself is made using NodeJS. and fine-tuned on davinci model.
 
