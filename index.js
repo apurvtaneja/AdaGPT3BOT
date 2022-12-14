@@ -1,4 +1,6 @@
 require('dotenv').config();
+var Deque = require("collections/deque");
+
 const {
   Client,
   GatewayIntentBits,
@@ -16,43 +18,43 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const { Console } = require("console");
-// get fs module for creating write streams
-const fs = require("fs");
-
-// make a new logger
-const myLogger = new Console({
-  stdout: fs.createWriteStream("normalStdout.txt"),
-  stderr: fs.createWriteStream("errorlogs.txt"),
-});
 
 // let prompt = fs.readFileSync('./Ada.txt', 'utf8');
-
+const OrigPrompt = "YOUR_PROMPT";
+var deque = new Deque([""]);
 
 client.on("messageCreate", function (message) {
   if (message.author.bot) return;
 
   // if (!message.mentions.has(client.user.id)) return;
 
-  let prompt = `You: ${message.content}\n\n###\n\n`;
+//   let prompt = `You: ${message.content}\n\n###\n\n`;
+    let prompt = OrigPrompt + deque.join("") + ` ${message.content}\n\n###\n\n`;
+
   (async () => {
     const gptResponse = await openai.createCompletion({
       model: "davinci:ft-personal-2022-12-06-19-20-02",
       prompt: prompt,
-      temperature: 0.5,
+      temperature: 0.9,
       max_tokens: 500,
-      top_p: 0.3,
+      top_p: 1.0,
       frequency_penalty: 0.5,
       presence_penalty: 0.0,
       stop: ["###"],
     });
 
     message.reply(`${gptResponse.data.choices[0].text.substring(5)}`);
-    // prompt += `${gptResponse.data.choices[0].text}\n`;
-
-    // var writeStream = fs.createWriteStream("./Ada.txt");
-    // writeStream.write(prompt);
-    // writeStream.end();
+    
+    deque.push(`\n${message.content}\n` + `${gptResponse.data.choices[0].text}###`);
+    console.log("Pushed");
+      
+    
+    console.log(deque.length);
+    if(deque.length >= 10){
+      deque.shift();
+      console.log("Sifted");
+    }
+    console.log(deque.join(""));
   })();
 });
 
